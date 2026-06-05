@@ -127,7 +127,7 @@ export function PartnersPage() {
           { value: "40+", label: "Technology Partners", icon: Code },
           { value: "25+", label: "SI Partners", icon: Globe },
           { value: "60+", label: "Countries Reached", icon: Award },
-        ].map((stat, i) => (
+        ].map((stat) => (
           <div key={stat.label} className="hud-panel p-5 text-center">
             <stat.icon className="w-4 h-4 text-primary mx-auto mb-3" strokeWidth={1} />
             <div className="text-2xl font-black gradient-text" style={{ fontFamily: 'Orbitron, monospace' }}>{stat.value}</div>

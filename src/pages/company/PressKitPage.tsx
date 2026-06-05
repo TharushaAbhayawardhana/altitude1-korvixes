@@ -1,6 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout"
 import { motion } from "framer-motion"
-import { Download, FileText, Image, Mail, ArrowRight } from "lucide-react"
+import { Download, FileText, Image, Mail } from "lucide-react"
 
 const assets = [
   { name: "Logo Pack (SVG + PNG)", desc: "All logo variants: horizontal, stacked, icon-only. Light, dark, and monochrome versions.", size: "4.2 MB", type: "ZIP" },

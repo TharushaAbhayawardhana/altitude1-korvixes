@@ -94,7 +94,7 @@ export function CompliancePage() {
             </div>
 
             <div className="space-y-3">
-              {framework.standards.map((standard, sIdx) => {
+              {framework.standards.map((standard) => {
                 const cfg = statusConfig[standard.status as keyof typeof statusConfig]
                 return (
                   <div

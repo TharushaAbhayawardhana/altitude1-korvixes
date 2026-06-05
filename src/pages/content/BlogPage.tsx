@@ -1,6 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout"
 import { motion } from "framer-motion"
-import { ArrowRight, Clock, Tag } from "lucide-react"
+import { ArrowRight, Clock } from "lucide-react"
 
 const posts = [
   {

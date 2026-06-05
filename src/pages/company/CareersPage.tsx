@@ -1,6 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout"
 import { motion } from "framer-motion"
-import { Cpu, Globe, Code, Shield, BarChart, Users, ArrowRight } from "lucide-react"
+import { Globe, Code, Shield, BarChart, Users, ArrowRight } from "lucide-react"
 
 const openRoles = [
   { dept: "Engineering", icon: Code, roles: [
@@ -80,7 +80,7 @@ export function CareersPage() {
                 <span className="text-xs font-bold text-foreground/70 tracking-widest uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>{dept.dept}</span>
               </div>
               <div className="space-y-2">
-                {dept.roles.map((role, rIdx) => (
+                {dept.roles.map((role) => (
                   <div
                     key={role.title}
                     className="hud-panel p-5 flex items-center gap-4 hover:border-primary/40 transition-all group cursor-pointer"
