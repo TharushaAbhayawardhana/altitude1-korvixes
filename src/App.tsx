@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
+import { ChatwootWidget } from "@/components/layout/ChatwootWidget"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { Hero } from "@/components/sections/Hero"
@@ -61,6 +62,7 @@ export function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <ChatwootWidget />
       <Routes>
         <Route path="/" element={<HomePage />} />
         {/* Legal */}
