@@ -1,4 +1,5 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
+import { useForm, ValidationError } from "@formspree/react"
 import { motion, useInView } from "framer-motion"
 import { PageLayout } from "@/components/layout/PageLayout"
 import { Input } from "@/components/ui/input"
@@ -32,13 +33,50 @@ export function ContactPage() {
     message: "",
   })
 
+  const [state, handleSubmit, resetFormspree] = useForm("xzdqvrek")
+  const [validationError, setValidationError] = useState<string | null>(null)
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  const loading = state.submitting
+  const formError = state.errors
+    ? state.errors.getFormErrors().map((e) => e.message).join(". ")
+    : null
+  const error = validationError || formError
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setShowSuccess(true)
+      setFormData({ name: "", email: "", company: "", subject: "", message: "" })
+      const timer = setTimeout(() => setShowSuccess(false), 8000)
+      return () => clearTimeout(timer)
+    }
+  }, [state.succeeded])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Placeholder — integration with backend API
+    setValidationError(null)
+    setShowSuccess(false)
+
+    const { name, email, company, subject, message } = formData
+    const trimmed = {
+      name: name.trim(),
+      email: email.trim(),
+      company: company.trim(),
+      subject: subject.trim(),
+      message: message.trim(),
+    }
+
+    if (!trimmed.name || !trimmed.email || !trimmed.subject || !trimmed.message) {
+      setValidationError("All required fields must be filled out.")
+      return
+    }
+
+    resetFormspree()
+    await handleSubmit(e)
   }
 
   return (
@@ -98,7 +136,7 @@ export function ContactPage() {
                 </span>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={onSubmit} className="space-y-5">
                 <motion.div custom={0} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
                   <label className="text-[10px] text-muted-foreground tracking-widest uppercase mb-1.5 block" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                     Full Name <span className="text-destructive">*</span>
@@ -111,6 +149,7 @@ export function ContactPage() {
                     className="bg-background/50 border-border/50 focus-visible:border-primary/60 focus-visible:ring-primary/20"
                     required
                   />
+                  <ValidationError field="name" errors={state.errors} className="text-[10px] text-destructive mt-1" />
                 </motion.div>
 
                 <motion.div custom={1} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
@@ -126,6 +165,7 @@ export function ContactPage() {
                     className="bg-background/50 border-border/50 focus-visible:border-primary/60 focus-visible:ring-primary/20"
                     required
                   />
+                  <ValidationError field="email" errors={state.errors} className="text-[10px] text-destructive mt-1" />
                 </motion.div>
 
                 <motion.div custom={2} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
@@ -153,6 +193,7 @@ export function ContactPage() {
                     className="bg-background/50 border-border/50 focus-visible:border-primary/60 focus-visible:ring-primary/20"
                     required
                   />
+                  <ValidationError field="subject" errors={state.errors} className="text-[10px] text-destructive mt-1" />
                 </motion.div>
 
                 <motion.div custom={4} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
@@ -167,21 +208,49 @@ export function ContactPage() {
                     className="min-h-[120px] bg-background/50 border-border/50 focus-visible:border-primary/60 focus-visible:ring-primary/20"
                     required
                   />
+                  <ValidationError field="message" errors={state.errors} className="text-[10px] text-destructive mt-1" />
                 </motion.div>
 
                 <motion.div custom={5} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
                   <button
                     type="submit"
-                    className="group relative cyber-chamfer btn-shimmer border border-primary/60 hover:border-primary hover:glow-blue text-primary text-sm font-bold tracking-widest uppercase px-8 py-3 transition-all duration-200 flex items-center gap-3 overflow-hidden"
+                    disabled={loading}
+                    className="group relative cyber-chamfer btn-shimmer border border-primary/60 hover:border-primary hover:glow-blue text-primary text-sm font-bold tracking-widest uppercase px-8 py-3 transition-all duration-200 flex items-center gap-3 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ fontFamily: 'JetBrains Mono, monospace' }}
                   >
-                    <span className="relative z-10">Send Transmission</span>
+                    <span className="relative z-10">{loading ? "Sending..." : "Send Transmission"}</span>
                     <Send className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform" />
                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent animate-beam" />
                     </div>
                   </button>
                 </motion.div>
+
+                {showSuccess && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-2 p-3 border border-accent/30 bg-accent/5"
+                  >
+                    <Shield className="w-4 h-4 text-accent shrink-0" strokeWidth={1.5} />
+                    <span className="text-xs text-accent/90" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      &gt; Message sent successfully
+                    </span>
+                  </motion.div>
+                )}
+
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-2 p-3 border border-destructive/30 bg-destructive/5"
+                  >
+                    <Shield className="w-4 h-4 text-destructive shrink-0" strokeWidth={1.5} />
+                    <span className="text-xs text-destructive/90" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      &gt; {error}
+                    </span>
+                  </motion.div>
+                )}
               </form>
             </div>
           </motion.div>
