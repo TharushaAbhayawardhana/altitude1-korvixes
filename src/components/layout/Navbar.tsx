@@ -95,19 +95,40 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* CTA */}
+        {/* CTA — System Gateway */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             to="/product"
-            className="relative cyber-chamfer-sm btn-shimmer border border-primary/50 hover:border-primary text-primary hover:glow-blue text-xs font-semibold tracking-widest uppercase px-5 py-2.5 transition-all duration-200 flex items-center gap-2 overflow-hidden"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
+            className="relative group px-4 py-2 flex items-center gap-2.5 overflow-hidden"
           >
-            {/* Beam */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent animate-beam" />
+            {/* Base cyber chamfer border */}
+            <div className="absolute inset-0 cyber-chamfer-sm border border-primary/40 group-hover:border-accent/50 transition-all duration-300" />
+            {/* Background gradient */}
+            <div className="absolute inset-0 cyber-chamfer-sm bg-gradient-to-r from-primary/10 via-primary/5 to-transparent group-hover:from-accent/10 group-hover:via-accent/5 transition-all duration-500" />
+            {/* Hover glow aura */}
+            <div className="absolute inset-0 cyber-chamfer-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{ boxShadow: 'inset 0 0 24px rgba(59,196,232,0.08), 0 0 20px rgba(42,107,219,0.08)' }} />
+            {/* Hover beam scans */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent animate-beam" />
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent animate-beam" style={{ animationDelay: '0.8s' }} />
             </div>
-            <span className="relative z-10">korvixes</span>
-            <ChevronRight className="w-3 h-3 relative z-10" />
+            {/* Terminal corner accents */}
+            <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-primary/30 group-hover:border-accent/60 transition-colors duration-300" />
+            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-primary/30 group-hover:border-accent/60 transition-colors duration-300" />
+            {/* Status indicator — live pulse */}
+            <span className="relative flex items-center justify-center w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-accent/40 animate-ping" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-accent" />
+            </span>
+            {/* System label */}
+            <span className="relative text-xs tracking-widest flex items-center gap-0" style={{ fontFamily: 'Orbitron, monospace' }}>
+              <span className="text-primary font-bold group-hover:text-accent transition-colors duration-300">KX</span>
+              <span className="text-muted-foreground/30 mx-[1px]">_</span>
+              <span className="text-foreground/80 group-hover:text-foreground font-semibold tracking-[0.15em] transition-colors duration-300">ENGINE</span>
+            </span>
+            {/* Arrow */}
+            <ChevronRight className="w-3 h-3 relative text-primary/50 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-300" />
           </Link>
         </div>
 
@@ -146,10 +167,13 @@ export function Navbar() {
                 <Link
                   to="/product"
                   onClick={() => setMobileOpen(false)}
-                  className="w-full cyber-chamfer-sm bg-primary/15 border border-primary/50 text-primary text-xs tracking-widest uppercase py-2.5 font-semibold hover:glow-blue transition-all"
-                  style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                  className="w-full cyber-chamfer-sm bg-primary/15 border border-primary/50 text-primary text-xs tracking-widest uppercase py-2.5 font-semibold hover:glow-blue transition-all flex items-center justify-center gap-2"
+                  style={{ fontFamily: 'Orbitron, monospace' }}
                 >
-                  korvixes
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow shrink-0" />
+                  <span className="text-primary font-bold">KX</span>
+                  <span className="text-muted-foreground/30">_</span>
+                  <span className="text-foreground/80">ENGINE</span>
                 </Link>
               </div>
             </div>
