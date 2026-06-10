@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Toaster } from "sonner"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { ChatwootWidget } from "@/components/layout/ChatwootWidget"
 import { Navbar } from "@/components/layout/Navbar"
@@ -33,8 +34,9 @@ import { ManufacturingPage } from "@/pages/content/ManufacturingPage"
 // Contact Page
 import { ContactPage } from "@/pages/contact/ContactPage"
 
-// Product Page
+// Product Pages
 import { ProductPage } from "@/pages/product/ProductPage"
+import { PaymentSuccessPage } from "@/pages/product/PaymentSuccessPage"
 
 
 function HomePage() {
@@ -63,8 +65,22 @@ export function App() {
     <BrowserRouter>
       <ScrollToTop />
       <ChatwootWidget />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            fontFamily: "JetBrains Mono, monospace",
+            fontSize: "12px",
+            background: "#0B0E16",
+            border: "1px solid #1a2235",
+            color: "#dce8f5",
+          },
+        }}
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/pricing" element={<HomePage />} />
+        <Route path="/payment-success" element={<PaymentSuccessPage />} />
         {/* Legal */}
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />

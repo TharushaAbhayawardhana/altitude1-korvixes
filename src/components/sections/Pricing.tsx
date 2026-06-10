@@ -1,12 +1,14 @@
-import { useRef } from "react"
+import { useRef, useState, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
 import { motion, useInView } from "framer-motion"
-import { Check, ChevronRight, Hexagon } from "lucide-react"
+import { Check, ChevronRight, Hexagon, Loader2 } from "lucide-react"
+import { createCheckoutSession } from "@/lib/api"
 
 const plans = [
   {
     name: "Starter Simulation",
     tagline: "Core digital twin capabilities",
-    price: "$2,500",
+    price: "$99",
     period: "/month",
     description: "Ideal for small teams exploring digital twin technology and single-line monitoring.",
     features: [
@@ -23,7 +25,7 @@ const plans = [
   {
     name: "Industrial Pro",
     tagline: "Full simulation engine + AI",
-    price: "$8,900",
+    price: "$159",
     period: "/month",
     description: "Built for engineering teams that need real-time simulation, AI predictions, and full operational visibility.",
     features: [
@@ -64,6 +66,30 @@ const plans = [
 export function Pricing() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-60px" })
+  const navigate = useNavigate()
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
+
+  const handleCheckout = useCallback(async (planName: string) => {
+    if (planName === "Enterprise Scale") {
+      navigate("/contact")
+      return
+    }
+    setLoadingPlan(planName)
+    try {
+      const { url } = await createCheckoutSession(planName)
+      window.location.href = url
+    } catch (err) {
+      const { toast } = await import("sonner")
+      const message =
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      toast.error(message, {
+        description: "Unable to start the checkout process.",
+      })
+      console.error("[Pricing Checkout]", err)
+    } finally {
+      setLoadingPlan(null)
+    }
+  }, [navigate])
 
   return (
     <section className="relative py-16 md:py-28 overflow-hidden" ref={ref}>
@@ -184,15 +210,23 @@ export function Pricing() {
 
                 {/* CTA */}
                 <button
-                  className={`w-full group relative cyber-chamfer text-xs font-bold tracking-widest uppercase px-6 py-3 transition-all duration-200 flex items-center justify-center gap-2 overflow-hidden ${
+                  onClick={() => handleCheckout(plan.name)}
+                  disabled={loadingPlan !== null}
+                  className={`w-full group relative cyber-chamfer text-xs font-bold tracking-widest uppercase px-6 py-3 transition-all duration-200 flex items-center justify-center gap-2 overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed ${
                     plan.highlighted
                       ? 'btn-shimmer border border-accent/60 hover:border-accent text-accent hover:glow-cyan'
                       : 'border border-primary/40 hover:border-primary text-primary hover:glow-blue bg-primary/5 hover:bg-primary/10'
                   }`}
                   style={{ fontFamily: 'JetBrains Mono, monospace' }}
                 >
-                  <span className="relative z-10">{plan.ctaLabel}</span>
-                  <ChevronRight className="w-3 h-3 relative z-10 group-hover:translate-x-0.5 transition-transform" />
+                  {loadingPlan === plan.name ? (
+                    <Loader2 className="w-4 h-4 animate-spin relative z-10" />
+                  ) : (
+                    <>
+                      <span className="relative z-10">{plan.ctaLabel}</span>
+                      <ChevronRight className="w-3 h-3 relative z-10 group-hover:translate-x-0.5 transition-transform" />
+                    </>
+                  )}
                   <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${
                       plan.highlighted ? 'via-accent/60' : 'via-primary/50'
