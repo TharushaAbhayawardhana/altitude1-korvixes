@@ -9,6 +9,21 @@ import { Mail, Clock, Server, Wifi, Send, Terminal, ChevronRight, Shield, Shield
 const isDev = import.meta.env.DEV || ["localhost", "127.0.0.1"].includes(window.location.hostname)
 const TURNSTILE_SITEKEY = "0x4AAAAAADisk6WJzfjcIaPv"
 
+interface TurnstileObject {
+  render: (container: HTMLElement, opts: {
+    sitekey: string
+    theme: string
+    callback: (token: string) => void
+    "expired-callback": () => void
+    "error-callback": () => void
+  }) => string
+  remove: (widgetId: string) => void
+  reset: (widgetId: string) => void
+  getResponse: (widgetId: string | undefined) => string | undefined
+}
+
+const turnstile = (): TurnstileObject | undefined => (window as any).turnstile
+
 const supportCategories = [
   { label: "Technical Support", icon: Server, description: "Platform issues, integration help, deployment assistance" },
   { label: "Enterprise Inquiry", icon: Shield, description: "Volume licensing, custom SLAs, dedicated infrastructure" },
@@ -43,7 +58,6 @@ export function ContactPage() {
   const turnstileRef = useRef<HTMLDivElement>(null)
   const turnstileWidgetId = useRef<string | undefined>(undefined)
   const turnstileInitDone = useRef(false)
-  const [turnstileReady, setTurnstileReady] = useState(false)
   const turnstileFailed = useRef(false)
 
   const loading = state.submitting
@@ -59,7 +73,6 @@ export function ContactPage() {
     if (isDev) {
       console.warn("[Turnstile] Development mode – CAPTCHA bypassed")
       setTurnstileToken("dev-bypass")
-      setTurnstileReady(true)
       return
     }
 
@@ -67,22 +80,21 @@ export function ContactPage() {
     let retries = 0
 
     const init = () => {
-      if (window.turnstile && turnstileRef.current) {
-        turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+      const ts = turnstile()
+      if (ts && turnstileRef.current) {
+        turnstileWidgetId.current = ts.render(turnstileRef.current, {
           sitekey: TURNSTILE_SITEKEY,
           theme: "dark",
           callback: (token: string) => setTurnstileToken(token),
           "expired-callback": () => setTurnstileToken(""),
           "error-callback": () => setTurnstileToken(""),
         })
-        setTurnstileReady(true)
       } else if (retries < maxRetries) {
         retries++
         setTimeout(init, 400)
       } else {
         console.warn("[Turnstile] Failed to load after max retries – form will work without CAPTCHA")
         turnstileFailed.current = true
-        setTurnstileReady(true)
       }
     }
 
@@ -90,8 +102,9 @@ export function ContactPage() {
 
     return () => {
       turnstileInitDone.current = false
-      if (turnstileWidgetId.current && window.turnstile) {
-        try { window.turnstile.remove(turnstileWidgetId.current) } catch { /* noop */ }
+      const ts = turnstile()
+      if (turnstileWidgetId.current && ts) {
+        try { ts.remove(turnstileWidgetId.current) } catch { /* noop */ }
         turnstileWidgetId.current = undefined
       }
     }
@@ -102,8 +115,9 @@ export function ContactPage() {
       setShowSuccess(true)
       setFormData({ name: "", email: "", company: "", subject: "", message: "" })
       setTurnstileToken("")
-      if (turnstileWidgetId.current && window.turnstile) {
-        window.turnstile.reset(turnstileWidgetId.current)
+      if (turnstileWidgetId.current) {
+        const ts = turnstile()
+        if (ts) ts.reset(turnstileWidgetId.current)
       }
       const timer = setTimeout(() => setShowSuccess(false), 8000)
       return () => clearTimeout(timer)
@@ -134,7 +148,8 @@ export function ContactPage() {
     }
 
     if (!isDev) {
-      const token = turnstileToken || window.turnstile?.getResponse(turnstileWidgetId.current)
+      const ts = turnstile()
+      const token = turnstileToken || ts?.getResponse(turnstileWidgetId.current)
       if (!token) {
         setValidationError("Please complete security verification.")
         return
