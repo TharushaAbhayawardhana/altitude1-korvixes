@@ -1,10 +1,12 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Binary, Network, BarChart3 } from "lucide-react"
+import overviewIcon1 from "@/assets/platform-overview/3.svg"
+import overviewIcon2 from "@/assets/platform-overview/4.svg"
+import overviewIcon3 from "@/assets/platform-overview/5.svg"
 
 const pillars = [
   {
-    icon: Binary,
+    iconSrc: overviewIcon1,
     title: "What is a Digital Twin?",
     description:
       "A digital twin is a real-time virtual replica of a physical industrial system. Every sensor, valve, motor, and pipeline is mirrored in software — allowing engineers to see exactly what's happening without stepping on the factory floor.",
@@ -14,7 +16,7 @@ const pillars = [
     tag: "CONCEPT",
   },
   {
-    icon: Network,
+    iconSrc: overviewIcon2,
     title: "Why It Matters",
     description:
       "Traditional monitoring is reactive. Digital twins are predictive. By simulating system behavior before failures occur, companies reduce downtime by up to 45% and cut maintenance costs by a third.",
@@ -24,7 +26,7 @@ const pillars = [
     tag: "IMPACT",
   },
   {
-    icon: BarChart3,
+    iconSrc: overviewIcon3,
     title: "How Korvixes Simulates",
     description:
       "Korvixes ingests live system telemetry, builds physics-accurate behavioral models, and runs continuous simulations in parallel with real operations. Alerts fire before anomalies become incidents.",
@@ -77,7 +79,7 @@ export function ProductOverview() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className={`group relative p-6 sm:p-8 cursor-default overflow-hidden transition-all duration-300 hover:bg-primary/5
+               className={`group relative p-6 sm:p-8 cursor-default overflow-hidden transition-all duration-300 hover:bg-primary/5 feature-card-hover
                 ${i < 2 ? 'md:border-r border-border/40' : ''}`}
             >
               {/* Hover beam */}
@@ -102,12 +104,15 @@ export function ProductOverview() {
               </div>
 
               {/* Icon */}
-              <div className={`relative w-12 h-12 cyber-chamfer-sm flex items-center justify-center mb-6 transition-all duration-300 ${
+              <div className={`relative w-20 h-20 cyber-chamfer-sm flex items-center justify-center mb-6 transition-all duration-300 ${
                 pillar.color === "primary"
-                  ? "bg-primary/10 border border-primary/25 group-hover:bg-primary/20 group-hover:glow-blue-sm"
-                  : "bg-accent/10 border border-accent/25 group-hover:bg-accent/20 group-hover:glow-cyan-sm"
+                  ? "bg-primary/12 border border-primary/30 group-hover:bg-primary/25 group-hover:glow-blue-sm"
+                  : "bg-accent/12 border border-accent/30 group-hover:bg-accent/25 group-hover:glow-cyan-sm"
               }`}>
-                <pillar.icon className={`w-5 h-5 ${pillar.color === "primary" ? "text-primary" : "text-accent"}`} strokeWidth={1.5} />
+                <div className={`absolute inset-0 opacity-30 blur-md rounded-sm ${
+                  pillar.color === "primary" ? "bg-primary/10" : "bg-accent/10"
+                }`} />
+                <img src={pillar.iconSrc} alt="" className="w-10 h-10 object-contain relative z-10" />
               </div>
 
               <h3 className="text-sm font-bold mb-3 uppercase tracking-wider" style={{ fontFamily: 'Orbitron, monospace' }}>

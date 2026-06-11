@@ -1,10 +1,13 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Factory, Zap, Cpu, BarChart3 } from "lucide-react"
+import useCaseIcon1 from "@/assets/use-cases/14.svg"
+import useCaseIcon2 from "@/assets/use-cases/15.svg"
+import useCaseIcon3 from "@/assets/use-cases/16.svg"
+import useCaseIcon4 from "@/assets/use-cases/17.svg"
 
 const useCases = [
   {
-    icon: Factory,
+    iconSrc: useCaseIcon1,
     industry: "Manufacturing Plants",
     title: "Optimize Production Lines",
     description:
@@ -13,7 +16,7 @@ const useCases = [
     metric: "40% fewer stoppages",
   },
   {
-    icon: Zap,
+    iconSrc: useCaseIcon2,
     industry: "Energy Systems",
     title: "Smart Grid & Power Management",
     description:
@@ -22,7 +25,7 @@ const useCases = [
     metric: "28% energy savings",
   },
   {
-    icon: Cpu,
+    iconSrc: useCaseIcon3,
     industry: "Smart Factories",
     title: "Industry 4.0 Operations",
     description:
@@ -31,7 +34,7 @@ const useCases = [
     metric: "3x faster insights",
   },
   {
-    icon: BarChart3,
+    iconSrc: useCaseIcon4,
     industry: "Industrial Monitoring",
     title: "Unified Operations Intelligence",
     description:
@@ -82,7 +85,7 @@ export function UseCases() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className={`group relative p-6 md:p-8 cursor-default overflow-hidden transition-all duration-300 hover:bg-accent/3
+              className={`group relative p-6 md:p-8 cursor-default overflow-hidden transition-all duration-300 hover:bg-accent/3 feature-card-hover
                 ${i % 2 === 0 ? 'md:border-r border-border/40' : ''}
                 ${i < 2 ? 'md:border-b border-border/40' : ''}
                 ${i < useCases.length - 1 ? 'border-b border-border/40 md:border-b-0' : ''}
@@ -106,8 +109,8 @@ export function UseCases() {
                     </span>
                     <h3 className="text-sm font-black uppercase tracking-wider" style={{ fontFamily: 'Orbitron, monospace' }}>{uc.title}</h3>
                   </div>
-                  <div className="w-10 h-10 cyber-chamfer-sm bg-accent/8 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/18 group-hover:glow-cyan-sm transition-all">
-                    <uc.icon className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                   <div className="w-16 h-16 cyber-chamfer-sm bg-accent/8 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/18 group-hover:glow-cyan-sm transition-all">
+                    <img src={uc.iconSrc} alt="" className="w-9 h-9 object-contain" />
                   </div>
                 </div>
 

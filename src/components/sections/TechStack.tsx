@@ -1,14 +1,23 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Layers, Zap, BarChart2, Activity, Code2, Shield, Cpu, Globe } from "lucide-react"
+import techIcon1 from "@/assets/tech-stack/22.svg"
+import techIcon2 from "@/assets/tech-stack/23.svg"
+import techIcon3 from "@/assets/tech-stack/24.svg"
+import techIcon4 from "@/assets/tech-stack/25.svg"
+import techIcon5 from "@/assets/tech-stack/26.svg"
+import techIcon6 from "@/assets/tech-stack/27.svg"
+import archIcon1 from "@/assets/tech-stack/28.svg"
+import archIcon2 from "@/assets/tech-stack/29.svg"
+import archIcon3 from "@/assets/tech-stack/30.svg"
+import archIcon4 from "@/assets/tech-stack/31.svg"
 
 const techItems = [
-  { icon: Code2, name: "React + Vite", role: "UI Runtime", description: "Ultra-fast frontend with HMR and optimized production bundles", color: "primary" },
-  { icon: Zap, name: "Framer Motion", role: "Animation Engine", description: "60fps transitions and physics-accurate micro-interactions", color: "accent" },
-  { icon: Layers, name: "Tailwind CSS", role: "Design System", description: "Utility-first styling with design tokens and dark mode", color: "primary" },
-  { icon: BarChart2, name: "Recharts", role: "Visualization", description: "Real-time chart rendering with streaming data support", color: "accent" },
-  { icon: Activity, name: "Simulation Engine", role: "Core Logic", description: "Frontend physics models with deterministic state machines", color: "primary" },
-  { icon: Shield, name: "TypeScript", role: "Type Safety", description: "Full type coverage across the simulation codebase", color: "accent" },
+  { iconSrc: techIcon1, name: "React + Vite", role: "UI Runtime", description: "Ultra-fast frontend with HMR and optimized production bundles", color: "primary" },
+  { iconSrc: techIcon2, name: "Framer Motion", role: "Animation Engine", description: "60fps transitions and physics-accurate micro-interactions", color: "accent" },
+  { iconSrc: techIcon3, name: "Tailwind CSS", role: "Design System", description: "Utility-first styling with design tokens and dark mode", color: "primary" },
+  { iconSrc: techIcon4, name: "Recharts", role: "Visualization", description: "Real-time chart rendering with streaming data support", color: "accent" },
+  { iconSrc: techIcon5, name: "Simulation Engine", role: "Core Logic", description: "Frontend physics models with deterministic state machines", color: "primary" },
+  { iconSrc: techIcon6, name: "TypeScript", role: "Type Safety", description: "Full type coverage across the simulation codebase", color: "accent" },
 ]
 
 const capabilities = [
@@ -20,10 +29,10 @@ const capabilities = [
 
 // NVIDIA-style architecture diagram data
 const archLayers = [
-  { label: "PRESENTATION LAYER", sublabel: "React · Framer Motion · Recharts", color: "#3BC4E8", icon: Globe },
-  { label: "SIMULATION ENGINE", sublabel: "Physics Models · State Machines · Predictive Inference", color: "#2A6BDB", icon: Cpu },
-  { label: "DATA INTEGRATION", sublabel: "IoT Streams · ERP · SCADA · PLC · MES", color: "#2A6BDB", icon: Activity },
-  { label: "SIMULATION COMPUTE CORE", sublabel: "Digital Twin SDK · GPU Compute · Parallel Simulation", color: "#3BC4E8", icon: Zap },
+  { label: "PRESENTATION LAYER", sublabel: "React · Framer Motion · Recharts", color: "#3BC4E8", iconSrc: archIcon1 },
+  { label: "SIMULATION ENGINE", sublabel: "Physics Models · State Machines · Predictive Inference", color: "#2A6BDB", iconSrc: archIcon2 },
+  { label: "DATA INTEGRATION", sublabel: "IoT Streams · ERP · SCADA · PLC · MES", color: "#2A6BDB", iconSrc: archIcon3 },
+  { label: "SIMULATION COMPUTE CORE", sublabel: "Digital Twin SDK · GPU Compute · Parallel Simulation", color: "#3BC4E8", iconSrc: archIcon4 },
 ]
 
 export function TechStack() {
@@ -79,12 +88,12 @@ export function TechStack() {
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                 className="relative group"
               >
-                <div className="flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3 border transition-all duration-300"
+                  <div className="flex items-center gap-4 md:gap-5 px-4 md:px-6 py-4 border transition-all duration-300"
                   style={{ borderColor: `${layer.color}22`, backgroundColor: `${layer.color}08` }}
                 >
-                  <div className="w-7 h-7 cyber-chamfer-sm flex items-center justify-center border shrink-0"
+                  <div className="w-11 h-11 cyber-chamfer-sm flex items-center justify-center border shrink-0"
                     style={{ borderColor: `${layer.color}40`, backgroundColor: `${layer.color}15` }}>
-                    <layer.icon className="w-3.5 h-3.5" strokeWidth={1.5} style={{ color: layer.color }} />
+                    <img src={layer.iconSrc} alt="" className="w-6 h-6 object-contain" />
                   </div>
                   <div className="flex-1">
                     <div className="text-xs font-bold tracking-widest uppercase" style={{ fontFamily: 'Orbitron, monospace', color: layer.color }}>
@@ -117,7 +126,7 @@ export function TechStack() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className={`group p-5 cursor-default transition-all duration-300 hover:bg-primary/5 overflow-hidden relative border-b border-border/40
+              className={`group p-5 cursor-default transition-all duration-300 hover:bg-primary/5 feature-card-hover overflow-hidden relative border-b border-border/40
                 ${i >= 5 ? 'sm:border-b-0' : ''}
                 ${i >= 3 ? 'lg:border-b-0' : ''}
                 ${i % 2 === 0 ? 'sm:border-r sm:border-border/40' : ''}
@@ -125,13 +134,13 @@ export function TechStack() {
               `}
             >
               <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/0 group-hover:border-primary/70 transition-all duration-300" />
-              <div className="flex items-center gap-3 mb-3">
-                <div className={`w-9 h-9 cyber-chamfer-sm flex items-center justify-center border transition-all duration-300 ${
+              <div className="flex items-center gap-4 mb-3">
+                <div className={`w-14 h-14 cyber-chamfer-sm flex items-center justify-center border transition-all duration-300 ${
                   item.color === "primary"
-                    ? "bg-primary/8 border-primary/20 group-hover:bg-primary/20 group-hover:glow-blue-sm"
-                    : "bg-accent/8 border-accent/20 group-hover:bg-accent/20 group-hover:glow-cyan-sm"
+                    ? "bg-primary/10 border-primary/25 group-hover:bg-primary/25 group-hover:glow-blue-sm"
+                    : "bg-accent/10 border-accent/25 group-hover:bg-accent/25 group-hover:glow-cyan-sm"
                 }`}>
-                  <item.icon className={`w-4 h-4 ${item.color === "primary" ? "text-primary" : "text-accent"}`} strokeWidth={1.5} />
+                  <img src={item.iconSrc} alt="" className="w-8 h-8 object-contain" />
                 </div>
                 <div>
                   <div className="font-bold text-xs uppercase tracking-wide" style={{ fontFamily: 'Orbitron, monospace' }}>{item.name}</div>

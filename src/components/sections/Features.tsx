@@ -1,19 +1,23 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import {
-  Cpu, Activity, BrainCircuit, LineChart,
-  Bell, Layers, Shield, Workflow,
-} from "lucide-react"
+import featIcon1 from "@/assets/features/6.svg"
+import featIcon2 from "@/assets/features/7.svg"
+import featIcon3 from "@/assets/features/8.svg"
+import featIcon4 from "@/assets/features/9.svg"
+import featIcon5 from "@/assets/features/10.svg"
+import featIcon6 from "@/assets/features/11.svg"
+import featIcon7 from "@/assets/features/12.svg"
+import featIcon8 from "@/assets/features/13.svg"
 
 const features = [
-  { icon: Cpu, title: "Real-time Simulation Engine", description: "Physics-accurate models run in parallel with live operations. Predict system behavior at sub-millisecond resolution.", tag: "CORE ENGINE", accentColor: "primary" },
-  { icon: Activity, title: "Industrial System Monitoring", description: "Continuous telemetry from thousands of sensors. Visualize temperature, pressure, flow, and vibration in one unified view.", tag: "MONITORING", accentColor: "accent" },
-  { icon: BrainCircuit, title: "Predictive Behavior Modeling", description: "Machine learning models trained on historical failure patterns detect anomalies days before they become critical.", tag: "MODELING", accentColor: "primary" },
-  { icon: LineChart, title: "Machine Performance Visualization", description: "Rich dashboards for every machine in your facility. OEE, availability, performance, and quality scores at a glance.", tag: "ANALYTICS", accentColor: "accent" },
-  { icon: Bell, title: "Smart Alerts and Notifications", description: "Configurable thresholds with intelligent suppression. Route alerts to the right engineer via email, SMS, or webhook.", tag: "ALERTING", accentColor: "accent" },
-  { icon: Layers, title: "Multi-layer System Modeling", description: "Model entire production chains — from individual sensors up to plant-wide energy flows. Full hierarchy support.", tag: "MODELING", accentColor: "primary" },
-  { icon: Shield, title: "Fault Isolation & Root Cause", description: "When anomalies occur, Korvixes traces the causal chain automatically. Know exactly what caused the fault and why.", tag: "DIAGNOSTICS", accentColor: "accent" },
-  { icon: Workflow, title: "Data-Driven Decision Insights", description: "Operational recommendations backed by simulation evidence. Shift from gut decisions to engineering-grade insights.", tag: "INTELLIGENCE", accentColor: "primary" },
+  { iconSrc: featIcon1, title: "Real-time Simulation Engine", description: "Physics-accurate models run in parallel with live operations. Predict system behavior at sub-millisecond resolution.", tag: "CORE ENGINE", accentColor: "primary" },
+  { iconSrc: featIcon2, title: "Industrial System Monitoring", description: "Continuous telemetry from thousands of sensors. Visualize temperature, pressure, flow, and vibration in one unified view.", tag: "MONITORING", accentColor: "accent" },
+  { iconSrc: featIcon3, title: "Predictive Behavior Modeling", description: "Machine learning models trained on historical failure patterns detect anomalies days before they become critical.", tag: "MODELING", accentColor: "primary" },
+  { iconSrc: featIcon4, title: "Machine Performance Visualization", description: "Rich dashboards for every machine in your facility. OEE, availability, performance, and quality scores at a glance.", tag: "ANALYTICS", accentColor: "accent" },
+  { iconSrc: featIcon5, title: "Smart Alerts and Notifications", description: "Configurable thresholds with intelligent suppression. Route alerts to the right engineer via email, SMS, or webhook.", tag: "ALERTING", accentColor: "accent" },
+  { iconSrc: featIcon6, title: "Multi-layer System Modeling", description: "Model entire production chains — from individual sensors up to plant-wide energy flows. Full hierarchy support.", tag: "MODELING", accentColor: "primary" },
+  { iconSrc: featIcon7, title: "Fault Isolation & Root Cause", description: "When anomalies occur, Korvixes traces the causal chain automatically. Know exactly what caused the fault and why.", tag: "DIAGNOSTICS", accentColor: "accent" },
+  { iconSrc: featIcon8, title: "Data-Driven Decision Insights", description: "Operational recommendations backed by simulation evidence. Shift from gut decisions to engineering-grade insights.", tag: "INTELLIGENCE", accentColor: "primary" },
 ]
 
 export function Features() {
@@ -104,20 +108,21 @@ export function Features() {
               </span>
 
               {/* Icon */}
-              <div className={`w-9 h-9 cyber-chamfer-sm flex items-center justify-center mb-4 transition-all duration-300 ${
+              <div className={`relative w-14 h-14 cyber-chamfer-sm flex items-center justify-center mb-5 transition-all duration-300 ${
                 feature.accentColor === 'accent'
-                  ? 'bg-accent/8 border border-accent/20 group-hover:bg-accent/20 group-hover:border-accent/50 group-hover:glow-cyan-sm'
-                  : 'bg-primary/8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:glow-blue-sm'
+                  ? 'bg-accent/10 border border-accent/25 group-hover:bg-accent/25 group-hover:border-accent/60 group-hover:glow-cyan-sm'
+                  : 'bg-primary/10 border border-primary/25 group-hover:bg-primary/25 group-hover:border-primary/60 group-hover:glow-blue-sm'
               }`}>
-                <feature.icon className={`w-4 h-4 transition-colors duration-300 ${
-                  feature.accentColor === 'accent' ? 'text-accent' : 'text-primary'
-                }`} strokeWidth={1.5} />
+                <div className={`absolute inset-0 opacity-40 blur-sm rounded-sm transition-opacity duration-300 ${
+                  feature.accentColor === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
+                }`} />
+                <img src={feature.iconSrc} alt="" className="w-8 h-8 object-contain relative z-10" />
               </div>
 
-              <h3 className="font-bold text-xs mb-2.5 leading-snug uppercase tracking-wide text-foreground/90 group-hover:text-foreground transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
+              <h3 className="font-bold text-sm mb-3 leading-snug uppercase tracking-wide text-foreground transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
                 {feature.title}
               </h3>
-              <p className="text-[11px] text-muted-foreground leading-relaxed tracking-wide group-hover:text-muted-foreground/80 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              <p className="text-xs text-muted-foreground leading-relaxed tracking-wide transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                 {feature.description}
               </p>
             </motion.div>

@@ -1,6 +1,10 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Quote } from "lucide-react"
+import sarahImg from "@/assets/testimonials/sarah-veldkamp.svg"
+import priyaImg from "@/assets/testimonials/priya-chandrasekhar.svg"
+import erikImg from "@/assets/testimonials/erik-nakamura.svg"
+import marcusImg from "@/assets/testimonials/marcus-thorne.svg"
 
 const testimonials = [
   {
@@ -8,24 +12,28 @@ const testimonials = [
     company: "AeroSync Dynamics",
     industry: "Aerospace Manufacturing",
     text: "Korvixes reduced our unplanned downtime by 62% in the first quarter. The digital twin model caught a critical vibration anomaly in our turbine assembly line three days before any sensor threshold was breached.",
+    imgSrc: marcusImg,
   },
   {
     name: "Sarah Veldkamp",
     company: "OmniCore Energy",
     industry: "Energy & Utilities",
     text: "We deployed Korvixes across 14 substations simultaneously. The real-time load simulation gave us the confidence to push our renewable dispatch from 40% to 73% without compromising grid stability.",
+    imgSrc: sarahImg,
   },
   {
     name: "Erik Nakamura",
     company: "PrecisionFab Industries",
     industry: "Industrial Manufacturing",
     text: "Predictive modeling has fundamentally changed how we approach maintenance. We've moved from scheduled downtime to condition-based operations. Our OEE climbed from 78% to 94% within six months.",
+    imgSrc: erikImg,
   },
   {
     name: "Dr. Priya Chandrasekhar",
     company: "Quantum Semiconductor Corp",
     industry: "Semiconductor Fabrication",
     text: "For fabs running at nanometer precision, every millisecond matters. Korvixes gave us sub-millisecond simulation accuracy across our entire lithography workflow. The ROI case was undeniable.",
+    imgSrc: priyaImg,
   },
 ]
 
@@ -97,10 +105,8 @@ export function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-4 pt-5 border-t border-border/30">
-                  <div className="w-10 h-10 cyber-chamfer-sm bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0">
-                    <span className="text-xs font-bold text-primary" style={{ fontFamily: 'Orbitron, monospace' }}>
-                      {t.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                  <div className="w-16 h-16 cyber-chamfer-sm bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0 overflow-hidden group-hover:glow-blue-sm transition-all duration-300">
+                    <img src={t.imgSrc} alt={t.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-foreground/90 tracking-wide" style={{ fontFamily: 'Orbitron, monospace' }}>

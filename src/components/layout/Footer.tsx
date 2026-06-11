@@ -1,7 +1,8 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Link } from "react-router-dom"
-import { Terminal, Hexagon, Activity, Cpu, Globe } from "lucide-react"
+import { Terminal, Activity, Cpu, Globe } from "lucide-react"
+import footerLogo from "@/assets/branding/logo-footer.webp"
 
 const footerLinks: Record<string, { label: string; href: string }[]> = {
   Platform: [
@@ -93,55 +94,48 @@ function Logo3D() {
   return (
     <div className="logo-3d-container w-full h-full flex items-center justify-center">
       <div className="logo-3d-inner relative" style={{ width: 160, height: 160 }}>
+      
         {/* Outer ring */}
-        <div className="absolute inset-0 rounded-full border border-primary/20 animate-spin-slow" style={{ animationDuration: '20s' }} />
+        <div className="absolute inset-0 rounded-full border border-primary/15 animate-pulse-glow" />
         {/* Orbit ring */}
         <div className="absolute"
           style={{
             inset: 12,
-            border: '1px solid rgba(59,196,232,0.15)',
+            border: '1px solid rgba(59,196,232,0.1)',
             borderRadius: '50%',
-            animation: 'orbitRing 8s linear infinite',
           }}
         >
-          {/* Orbit dot */}
           <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full status-dot-blue" />
         </div>
 
-        {/* Middle ring */}
+        {/* Inner ring */}
         <div className="absolute"
           style={{
             inset: 28,
-            border: '1px solid rgba(42,107,219,0.25)',
+            border: '1px solid rgba(42,107,219,0.15)',
             borderRadius: '50%',
-            animation: 'orbitRing 12s linear infinite reverse',
           }}
         >
           <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full status-dot-green" />
         </div>
 
-        {/* Core hexagon */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-16 h-16 cyber-chamfer-sm bg-primary/10 border border-primary/40 flex items-center justify-center animate-hex-rotate"
-            style={{ animationDuration: '14s' }}>
-            <Hexagon className="w-8 h-8 text-primary" strokeWidth={1} />
-            {/* Inner glow */}
-            <div className="absolute inset-0 bg-primary/5 animate-pulse-glow" />
+        {/* Core logo */}
+        <div className="absolute inset-0 flex items-center justify-center"
+          style={{ transform: 'translateZ(30px)' }}>
+          <div className="relative w-20 h-20 cyber-chamfer-sm bg-primary/8 border border-primary/30 flex items-center justify-center group-hover:glow-blue-sm transition-all duration-500">
+            <img
+              src={footerLogo}
+              alt="Korvixes"
+              className="w-11 h-11 object-contain opacity-70 group-hover:opacity-100 group-hover:brightness-110 transition-all duration-500"
+            />
+            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           </div>
         </div>
 
         {/* Scan line */}
-        <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none opacity-60">
-          <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent animate-scan" />
+        <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none opacity-30">
+          <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" style={{ top: '40%' }} />
         </div>
-
-        {/* Corner tick marks */}
-        {[0, 90, 180, 270].map((deg) => (
-          <div key={deg} className="absolute inset-0 flex items-start justify-center"
-            style={{ transform: `rotate(${deg}deg)` }}>
-            <div className="w-px h-3 bg-primary/40 mt-1" />
-          </div>
-        ))}
       </div>
     </div>
   )
@@ -176,15 +170,13 @@ export function Footer() {
               transition={{ duration: 0.6 }}
               className="mb-10"
             >
-              <Link to="/" className="flex items-center gap-3 mb-5 group w-fit">
-                <div className="relative w-9 h-9 cyber-chamfer-sm bg-primary/12 border border-primary/40 flex items-center justify-center group-hover:glow-blue-sm transition-all duration-300">
-                  <Hexagon className="w-5 h-5 text-primary" strokeWidth={1.5} />
-                </div>
-                <span className="font-bold text-lg tracking-widest uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>
-                  <span className="gradient-text">Korvi</span>
-                  <span className="text-foreground/90">xes</span>
-                </span>
-              </Link>
+              <Link to="/" className="flex items-center mb-5 w-fit group">
+              <img
+                src={footerLogo}
+                alt="Korvixes"
+                className="h-10 w-auto object-contain opacity-80 group-hover:opacity-100 group-hover:brightness-110 transition-all duration-300"
+              />
+            </Link>
               <p className="text-xs text-muted-foreground leading-relaxed mb-6 max-w-xs tracking-wide"
                 style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                 Digital Twin & Industrial Simulation Platform.
@@ -260,7 +252,7 @@ export function Footer() {
             className="lg:col-span-2 flex flex-col"
           >
             {/* Module header */}
-            <div className="hud-panel p-0 overflow-hidden animate-footer-glow flex-1 flex flex-col">
+            <div className="hud-panel p-0 overflow-hidden animate-footer-glow flex-1 flex flex-col group">
               {/* Terminal bar */}
               <div className="flex items-center justify-between px-4 py-2.5 border-b border-primary/15 bg-black/50">
                 <div className="flex items-center gap-2">

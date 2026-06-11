@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate, useLocation, Link } from "react-router-dom"
-import { Menu, X, ChevronRight, Hexagon } from "lucide-react"
+import { Menu, X, ChevronRight } from "lucide-react"
+import headerLogo from "@/assets/branding/logo-header.webp"
 import { useNavigateToSection } from "@/hooks/useNavigateToSection"
 
 const navLinks = [
@@ -58,18 +59,12 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative w-9 h-9 cyber-chamfer-sm bg-primary/12 border border-primary/40 flex items-center justify-center group-hover:glow-blue-sm group-hover:bg-primary/20 transition-all duration-300">
-            <Hexagon className="w-5 h-5 text-primary group-hover:text-accent transition-colors duration-300" strokeWidth={1.5} />
-            {/* Scan line on hover */}
-            <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-              <div className="absolute left-0 right-0 h-px bg-accent/70 animate-scan" />
-            </div>
-          </div>
-          <span className="font-bold text-lg tracking-widest uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>
-            <span className="gradient-text">Korvi</span>
-            <span className="text-foreground/90">xes</span>
-          </span>
+        <Link to="/" className="flex items-center group">
+          <img
+            src={headerLogo}
+            alt="Korvixes"
+            className="h-11 w-auto object-contain brightness-90 group-hover:brightness-110 transition-all duration-300"
+          />
         </Link>
 
         {/* Desktop nav */}
