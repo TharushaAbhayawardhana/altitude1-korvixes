@@ -104,10 +104,10 @@ export function ProductOverview() {
               </div>
 
               {/* Icon */}
-              <div className={`relative w-20 h-20 cyber-chamfer-sm flex items-center justify-center mb-6 transition-all duration-300 ${
+              <div className={`relative w-12 h-12 cyber-chamfer-sm flex items-center justify-center mb-6 transition-all duration-300 ${
                 pillar.color === "primary"
-                  ? "bg-primary/12 border border-primary/30 group-hover:bg-primary/25 group-hover:glow-blue-sm"
-                  : "bg-accent/12 border border-accent/30 group-hover:bg-accent/25 group-hover:glow-cyan-sm"
+                  ? "bg-primary/10 border border-primary/25 group-hover:bg-primary/20 group-hover:glow-blue-sm"
+                  : "bg-accent/10 border border-accent/25 group-hover:bg-accent/20 group-hover:glow-cyan-sm"
               }`}>
                 <div className={`absolute inset-0 opacity-30 blur-md rounded-sm ${
                   pillar.color === "primary" ? "bg-primary/10" : "bg-accent/10"

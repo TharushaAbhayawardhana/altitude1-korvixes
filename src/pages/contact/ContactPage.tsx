@@ -4,7 +4,10 @@ import { motion, useInView } from "framer-motion"
 import { PageLayout } from "@/components/layout/PageLayout"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Clock, Server, Wifi, Send, Terminal, ChevronRight, Shield } from "lucide-react"
+import { Mail, Clock, Server, Wifi, Send, Terminal, ChevronRight, Shield, ShieldOff } from "lucide-react"
+
+const isDev = import.meta.env.DEV || ["localhost", "127.0.0.1"].includes(window.location.hostname)
+const TURNSTILE_SITEKEY = "0x4AAAAAADisk6WJzfjcIaPv"
 
 const supportCategories = [
   { label: "Technical Support", icon: Server, description: "Platform issues, integration help, deployment assistance" },
@@ -36,6 +39,12 @@ export function ContactPage() {
   const [state, handleSubmit, resetFormspree] = useForm("xzdqvrek")
   const [validationError, setValidationError] = useState<string | null>(null)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState<string>("")
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetId = useRef<string | undefined>(undefined)
+  const turnstileInitDone = useRef(false)
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const turnstileFailed = useRef(false)
 
   const loading = state.submitting
   const formError = state.errors
@@ -44,9 +53,58 @@ export function ContactPage() {
   const error = validationError || formError
 
   useEffect(() => {
+    if (turnstileInitDone.current) return
+    turnstileInitDone.current = true
+
+    if (isDev) {
+      console.warn("[Turnstile] Development mode – CAPTCHA bypassed")
+      setTurnstileToken("dev-bypass")
+      setTurnstileReady(true)
+      return
+    }
+
+    const maxRetries = 15
+    let retries = 0
+
+    const init = () => {
+      if (window.turnstile && turnstileRef.current) {
+        turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITEKEY,
+          theme: "dark",
+          callback: (token: string) => setTurnstileToken(token),
+          "expired-callback": () => setTurnstileToken(""),
+          "error-callback": () => setTurnstileToken(""),
+        })
+        setTurnstileReady(true)
+      } else if (retries < maxRetries) {
+        retries++
+        setTimeout(init, 400)
+      } else {
+        console.warn("[Turnstile] Failed to load after max retries – form will work without CAPTCHA")
+        turnstileFailed.current = true
+        setTurnstileReady(true)
+      }
+    }
+
+    init()
+
+    return () => {
+      turnstileInitDone.current = false
+      if (turnstileWidgetId.current && window.turnstile) {
+        try { window.turnstile.remove(turnstileWidgetId.current) } catch { /* noop */ }
+        turnstileWidgetId.current = undefined
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (state.succeeded) {
       setShowSuccess(true)
       setFormData({ name: "", email: "", company: "", subject: "", message: "" })
+      setTurnstileToken("")
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetId.current)
+      }
       const timer = setTimeout(() => setShowSuccess(false), 8000)
       return () => clearTimeout(timer)
     }
@@ -73,6 +131,14 @@ export function ContactPage() {
     if (!trimmed.name || !trimmed.email || !trimmed.subject || !trimmed.message) {
       setValidationError("All required fields must be filled out.")
       return
+    }
+
+    if (!isDev) {
+      const token = turnstileToken || window.turnstile?.getResponse(turnstileWidgetId.current)
+      if (!token) {
+        setValidationError("Please complete security verification.")
+        return
+      }
     }
 
     resetFormspree()
@@ -212,6 +278,26 @@ export function ContactPage() {
                 </motion.div>
 
                 <motion.div custom={5} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
+                  <input type="hidden" name="cf-turnstile-response" value={turnstileToken} />
+                  <div className="flex justify-center mb-5">
+                    {isDev ? (
+                      <div className="flex items-center gap-2 px-4 py-2 border border-dashed border-muted-foreground/30 bg-muted/5">
+                        <ShieldOff className="w-3.5 h-3.5 text-muted-foreground/50" strokeWidth={1.5} />
+                        <span className="text-[10px] text-muted-foreground/50 tracking-wider" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                          CAPTCHA bypassed (development mode)
+                        </span>
+                      </div>
+                    ) : (
+                      <div
+                        ref={turnstileRef}
+                        className="cf-turnstile-wrapper"
+                        style={{ minHeight: 65 }}
+                      />
+                    )}
+                  </div>
+                </motion.div>
+
+                <motion.div custom={6} variants={stagger} initial="hidden" animate={formInView ? "visible" : "hidden"}>
                   <button
                     type="submit"
                     disabled={loading}

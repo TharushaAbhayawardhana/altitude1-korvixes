@@ -88,10 +88,10 @@ export function TechStack() {
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                 className="relative group"
               >
-                  <div className="flex items-center gap-4 md:gap-5 px-4 md:px-6 py-4 border transition-all duration-300"
+                  <div className="flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3 border transition-all duration-300"
                   style={{ borderColor: `${layer.color}22`, backgroundColor: `${layer.color}08` }}
                 >
-                  <div className="w-11 h-11 cyber-chamfer-sm flex items-center justify-center border shrink-0"
+                  <div className="w-7 h-7 cyber-chamfer-sm flex items-center justify-center border shrink-0"
                     style={{ borderColor: `${layer.color}40`, backgroundColor: `${layer.color}15` }}>
                     <img src={layer.iconSrc} alt="" className="w-6 h-6 object-contain" />
                   </div>
@@ -134,11 +134,11 @@ export function TechStack() {
               `}
             >
               <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/0 group-hover:border-primary/70 transition-all duration-300" />
-              <div className="flex items-center gap-4 mb-3">
-                <div className={`w-14 h-14 cyber-chamfer-sm flex items-center justify-center border transition-all duration-300 ${
+              <div className="flex items-center gap-3 mb-3">
+                <div className={`w-9 h-9 cyber-chamfer-sm flex items-center justify-center border transition-all duration-300 ${
                   item.color === "primary"
-                    ? "bg-primary/10 border-primary/25 group-hover:bg-primary/25 group-hover:glow-blue-sm"
-                    : "bg-accent/10 border-accent/25 group-hover:bg-accent/25 group-hover:glow-cyan-sm"
+                    ? "bg-primary/8 border-primary/20 group-hover:bg-primary/20 group-hover:glow-blue-sm"
+                    : "bg-accent/8 border-accent/20 group-hover:bg-accent/20 group-hover:glow-cyan-sm"
                 }`}>
                   <img src={item.iconSrc} alt="" className="w-8 h-8 object-contain" />
                 </div>

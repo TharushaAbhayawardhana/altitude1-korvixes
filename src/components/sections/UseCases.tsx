@@ -109,7 +109,7 @@ export function UseCases() {
                     </span>
                     <h3 className="text-sm font-black uppercase tracking-wider" style={{ fontFamily: 'Orbitron, monospace' }}>{uc.title}</h3>
                   </div>
-                   <div className="w-16 h-16 cyber-chamfer-sm bg-accent/8 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/18 group-hover:glow-cyan-sm transition-all">
+                   <div className="w-10 h-10 cyber-chamfer-sm bg-accent/8 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/18 group-hover:glow-cyan-sm transition-all">
                     <img src={uc.iconSrc} alt="" className="w-9 h-9 object-contain" />
                   </div>
                 </div>

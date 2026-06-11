@@ -105,7 +105,7 @@ export function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-4 pt-5 border-t border-border/30">
-                  <div className="w-16 h-16 cyber-chamfer-sm bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0 overflow-hidden group-hover:glow-blue-sm transition-all duration-300">
+                  <div className="w-10 h-10 cyber-chamfer-sm bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0 overflow-hidden group-hover:glow-blue-sm transition-all duration-300">
                     <img src={t.imgSrc} alt={t.name} className="w-full h-full object-cover" />
                   </div>
                   <div>

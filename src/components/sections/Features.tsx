@@ -108,10 +108,10 @@ export function Features() {
               </span>
 
               {/* Icon */}
-              <div className={`relative w-14 h-14 cyber-chamfer-sm flex items-center justify-center mb-5 transition-all duration-300 ${
+              <div className={`relative w-9 h-9 cyber-chamfer-sm flex items-center justify-center mb-4 transition-all duration-300 ${
                 feature.accentColor === 'accent'
-                  ? 'bg-accent/10 border border-accent/25 group-hover:bg-accent/25 group-hover:border-accent/60 group-hover:glow-cyan-sm'
-                  : 'bg-primary/10 border border-primary/25 group-hover:bg-primary/25 group-hover:border-primary/60 group-hover:glow-blue-sm'
+                  ? 'bg-accent/8 border border-accent/20 group-hover:bg-accent/20 group-hover:border-accent/50 group-hover:glow-cyan-sm'
+                  : 'bg-primary/8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:glow-blue-sm'
               }`}>
                 <div className={`absolute inset-0 opacity-40 blur-sm rounded-sm transition-opacity duration-300 ${
                   feature.accentColor === 'accent' ? 'bg-accent/10' : 'bg-primary/10'
@@ -119,10 +119,10 @@ export function Features() {
                 <img src={feature.iconSrc} alt="" className="w-8 h-8 object-contain relative z-10" />
               </div>
 
-              <h3 className="font-bold text-sm mb-3 leading-snug uppercase tracking-wide text-foreground transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
+              <h3 className="font-bold text-xs mb-2.5 leading-snug uppercase tracking-wide text-foreground/90 group-hover:text-foreground transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
                 {feature.title}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed tracking-wide transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              <p className="text-[11px] text-muted-foreground leading-relaxed tracking-wide group-hover:text-muted-foreground/80 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                 {feature.description}
               </p>
             </motion.div>
