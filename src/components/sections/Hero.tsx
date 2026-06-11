@@ -1,6 +1,8 @@
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ChevronRight, Play, Cpu, Zap, Globe } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+import { useNavigateToSection } from "@/hooks/useNavigateToSection"
 
 const particles = Array.from({ length: 30 }, (_, i) => ({
   id: i,
@@ -31,6 +33,8 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: containerRef })
   const y = useTransform(scrollYProgress, [0, 1], [0, 100])
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const navigate = useNavigate()
+  const navigateToSection = useNavigateToSection()
 
   return (
     <section
@@ -166,6 +170,7 @@ export function Hero() {
           className="flex flex-wrap gap-4 justify-center mb-16"
         >
           <button
+            onClick={() => navigate("/product")}
             className="group relative cyber-chamfer bg-primary/15 border border-primary/60 hover:border-primary hover:bg-primary/25 hover:glow-blue text-primary text-sm font-semibold tracking-widest uppercase px-6 sm:px-8 py-3 sm:py-4 transition-all duration-200 flex items-center gap-3"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
           >
@@ -176,6 +181,7 @@ export function Hero() {
             </div>
           </button>
           <button
+            onClick={() => navigateToSection("use-cases")}
             className="cyber-chamfer border border-border/50 hover:border-accent/50 bg-transparent hover:bg-accent/5 text-muted-foreground hover:text-accent text-sm font-semibold tracking-widest uppercase px-6 sm:px-8 py-3 sm:py-4 transition-all duration-200 flex items-center gap-3"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
           >
