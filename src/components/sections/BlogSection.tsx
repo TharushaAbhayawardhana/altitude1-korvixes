@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { ArrowRight, Clock } from "lucide-react"
 import { Link } from "react-router-dom"
-import { posts, categoryColors, BlogPost } from "@/data/blog"
+import { posts, categoryColors, type BlogPost } from "@/data/blog"
 import { BlogDetailModal } from "@/components/blog/BlogDetailModal"
 
 export function BlogSection() {
