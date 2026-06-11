@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ""
+
 interface CheckoutSessionResponse {
   url: string
   sessionId: string
@@ -6,7 +8,7 @@ interface CheckoutSessionResponse {
 export async function createCheckoutSession(
   planName: string
 ): Promise<CheckoutSessionResponse> {
-  const res = await fetch("/api/create-checkout-session", {
+  const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ planName }),
