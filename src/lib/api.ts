@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ""
+const PAYMENT_LINKS: Record<string, string | undefined> = {
+  "Starter Simulation": import.meta.env.VITE_STRIPE_PAYMENT_LINK_STARTER,
+  "Industrial Pro": import.meta.env.VITE_STRIPE_PAYMENT_LINK_INDUSTRIAL_PRO,
+}
 
 interface CheckoutSessionResponse {
   url: string
@@ -8,22 +11,10 @@ interface CheckoutSessionResponse {
 export async function createCheckoutSession(
   planName: string
 ): Promise<CheckoutSessionResponse> {
-  const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ planName }),
-  })
-
-  if (!res.ok) {
-    let message = `Request failed (${res.status})`
-    try {
-      const body = await res.json()
-      if (body?.error) message = body.error
-    } catch {
-      // use default message
-    }
-    throw new Error(message)
+  const paymentLink = PAYMENT_LINKS[planName]
+  if (paymentLink) {
+    return { url: paymentLink, sessionId: "" }
   }
 
-  return res.json()
+  throw new Error("Payment is not configured for this plan.")
 }
