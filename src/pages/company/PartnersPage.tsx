@@ -10,7 +10,7 @@ const partnerTiers = [
     bgColor: "bg-[#f59e0b]/5",
     partners: [
       { name: "Siemens Digital Industries", desc: "Co-developed integration layer for SIMATIC and TIA Portal. Joint go-to-market in European automotive and energy sectors." },
-      { name: "NVIDIA Omniverse", desc: "Physics-based simulation rendering and RTX-accelerated visualization pipeline. USD format interoperability." },
+      { name: "Advanced Simulation Platform", desc: "Physics based simulation rendering and hardware accelerated visualization pipeline. USD format interoperability." },
       { name: "Microsoft Azure", desc: "Preferred cloud infrastructure partner. Co-sell agreement and joint enterprise customer success program." },
       { name: "ABB Robotics", desc: "Native digital twin integration with ABB IRC5 and OmniCore controller families for robotic cell simulation." },
     ]

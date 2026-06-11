@@ -81,7 +81,7 @@ export function ContactPage() {
 
   return (
     <PageLayout
-      title="Contact Korvixes Intelligence"
+      title="Contact Korvixes"
       subtitle="Connect with our simulation engineering team"
       badge="Contact"
     >
@@ -299,6 +299,30 @@ export function ContactPage() {
                     </div>
                     <div className="text-xs text-foreground/80" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
                       &lt; 4 hours (business)
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 p-3 border border-border/30 bg-background/30">
+                  <Mail className="w-4 h-4 text-accent shrink-0" strokeWidth={1.5} />
+                  <div>
+                    <div className="text-[9px] text-muted-foreground tracking-widest uppercase mb-0.5" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      Corporate Office
+                    </div>
+                    <div className="text-xs text-foreground/80" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      1 Market Plaza, Floor 11, San Francisco, CA 94105, USA
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 p-3 border border-border/30 bg-background/30">
+                  <Terminal className="w-4 h-4 text-accent shrink-0" strokeWidth={1.5} />
+                  <div>
+                    <div className="text-[9px] text-muted-foreground tracking-widest uppercase mb-0.5" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      Phone
+                    </div>
+                    <div className="text-xs text-foreground/80" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      +1 (415) 555-0166
                     </div>
                   </div>
                 </div>

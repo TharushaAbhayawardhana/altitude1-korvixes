@@ -1,6 +1,7 @@
+import { useState } from "react"
 import { PageLayout } from "@/components/layout/PageLayout"
 import { motion } from "framer-motion"
-import { Download, FileText, Image, Mail } from "lucide-react"
+import { Download, FileText, Image, Mail, Check } from "lucide-react"
 
 const assets = [
   { name: "Logo Pack (SVG + PNG)", desc: "All logo variants: horizontal, stacked, icon-only. Light, dark, and monochrome versions.", size: "4.2 MB", type: "ZIP" },
@@ -20,13 +21,33 @@ const pressContacts = [
 
 const boilerplate = `Korvixes is the leading Industrial Simulation Platform for Digital Twin intelligence. Trusted by 180+ enterprise manufacturers, energy operators, and infrastructure providers across 40+ countries, Korvixes enables real-time simulation of industrial systems with 99.8% physics accuracy and sub-millisecond latency.
 
-The Korvixes platform powers predictive operations, AI-driven maintenance, and intelligent system design for the world's most demanding industrial environments — from automotive assembly lines to national power grids.
+The Korvixes platform powers predictive operations, intelligence driven maintenance, and intelligent system design for the world's most demanding industrial environments — from automotive assembly lines to national power grids.
 
 Korvixes is headquartered in London, with engineering hubs in Singapore and Frankfurt. The company is backed by Accel, Tiger Global, and Threshold Ventures.
 
 For more information, visit korvixes.io.`
 
 export function PressKitPage() {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(boilerplate)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // fallback for older browsers
+      const ta = document.createElement("textarea")
+      ta.value = boilerplate
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand("copy")
+      document.body.removeChild(ta)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
   return (
     <PageLayout
       title="Press Kit"
@@ -44,7 +65,7 @@ export function PressKitPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="hud-panel p-5 flex items-start gap-4 hover:border-primary/30 transition-all group cursor-pointer"
+              className="hud-panel p-5 flex items-start gap-4 hover:border-primary/30 transition-all group"
             >
               <div className="w-9 h-9 cyber-chamfer-sm bg-primary/8 border border-primary/25 flex items-center justify-center shrink-0">
                 {asset.type === 'PDF' ? <FileText className="w-4 h-4 text-primary" strokeWidth={1.5} /> : <Image className="w-4 h-4 text-primary" strokeWidth={1.5} />}
@@ -74,9 +95,9 @@ export function PressKitPage() {
         <div className="hud-panel p-0 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-3 border-b border-primary/15 bg-black/40">
             <span className="text-[10px] text-muted-foreground tracking-widest" style={{ fontFamily: 'JetBrains Mono, monospace' }}>boilerplate.txt — approved for press use</span>
-            <button className="flex items-center gap-1.5 text-[10px] text-primary/60 hover:text-primary transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-              <Download className="w-3 h-3" strokeWidth={1.5} />
-              Copy
+            <button onClick={handleCopy} className="flex items-center gap-1.5 text-[10px] text-primary/60 hover:text-primary transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              {copied ? <Check className="w-3 h-3" strokeWidth={1.5} /> : <Download className="w-3 h-3" strokeWidth={1.5} />}
+              {copied ? "Copied" : "Copy"}
             </button>
           </div>
           <div className="px-6 py-5">

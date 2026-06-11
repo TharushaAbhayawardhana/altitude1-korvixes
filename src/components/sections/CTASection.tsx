@@ -67,21 +67,35 @@ export function CTASection() {
           </div>
 
           {/* CTAs */}
-          <div               className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/product"
-              className="group relative cyber-chamfer btn-shimmer border border-primary/60 hover:border-primary hover:glow-blue text-primary text-sm font-bold tracking-widest uppercase px-6 sm:px-10 py-3 sm:py-4 transition-all duration-200 flex items-center gap-3 overflow-hidden"
-              style={{ fontFamily: 'JetBrains Mono, monospace' }}
+              className="group relative px-6 sm:px-10 py-4 flex items-center gap-3 overflow-hidden"
             >
-              <span className="relative z-10">korvixes</span>
-              <ChevronRight className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform" />
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 cyber-chamfer-sm border border-primary/40 group-hover:border-accent/50 transition-all duration-300" />
+              <div className="absolute inset-0 cyber-chamfer-sm bg-gradient-to-r from-primary/10 via-primary/5 to-transparent group-hover:from-accent/10 group-hover:via-accent/5 transition-all duration-500" />
+              <div className="absolute inset-0 cyber-chamfer-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ boxShadow: 'inset 0 0 24px rgba(59,196,232,0.08), 0 0 20px rgba(42,107,219,0.08)' }} />
+              <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent animate-beam" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent animate-beam" style={{ animationDelay: '0.8s' }} />
               </div>
+              <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-primary/30 group-hover:border-accent/60 transition-colors duration-300" />
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-primary/30 group-hover:border-accent/60 transition-colors duration-300" />
+              <span className="relative flex items-center justify-center w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-accent/40 animate-ping" />
+                <span className="relative w-1.5 h-1.5 rounded-full bg-accent" />
+              </span>
+              <span className="relative text-sm tracking-widest flex items-center gap-0" style={{ fontFamily: 'Orbitron, monospace' }}>
+                <span className="text-primary font-bold group-hover:text-accent transition-colors duration-300">KX</span>
+                <span className="text-muted-foreground/30 mx-[1px]">_</span>
+                <span className="text-foreground/80 group-hover:text-foreground font-semibold tracking-[0.15em] transition-colors duration-300">ENGINE</span>
+              </span>
+              <ChevronRight className="w-4 h-4 relative text-primary/50 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-300" />
             </Link>
             <Link
               to="/contact"
-              className="cyber-chamfer border border-border/50 hover:border-accent/50 bg-transparent hover:bg-accent/5 text-muted-foreground hover:text-accent text-sm font-bold tracking-widest uppercase px-6 sm:px-10 py-3 sm:py-4 transition-all duration-200 flex items-center gap-3"
+              className="group relative cyber-chamfer border border-border/50 hover:border-accent/50 bg-transparent hover:bg-accent/5 text-muted-foreground hover:text-accent text-sm font-bold tracking-widest uppercase px-6 sm:px-10 py-4 transition-all duration-200 flex items-center gap-3"
               style={{ fontFamily: 'JetBrains Mono, monospace' }}
             >
               <Mail className="w-4 h-4" />

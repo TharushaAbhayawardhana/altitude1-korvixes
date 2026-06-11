@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 
-const sectionRoutes = new Set(["/features", "/solutions"])
+const sectionRoutes = new Set(["/features", "/solutions", "/testimonials", "/faq"])
 
 export function ScrollToTop() {
   const { pathname, hash } = useLocation()

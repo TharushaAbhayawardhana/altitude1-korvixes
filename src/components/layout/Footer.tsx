@@ -7,9 +7,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
   Platform: [
     { label: "FAQ", href: "/faq" },
     { label: "Testimonials", href: "/testimonials" },
-    { label: "Overview", href: "/" },
     { label: "Features", href: "/features" },
-    { label: "Integrations", href: "/features" },
   ],
   Solutions: [
     { label: "Manufacturing", href: "/solutions/manufacturing" },
@@ -17,7 +15,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
     { label: "Industrial IoT", href: "/features" },
   ],
   Company: [
-    { label: "About Us", href: "/about" },
+    { label: "About", href: "/about" },
     { label: "Careers", href: "/careers" },
     { label: "Blog", href: "/blog" },
     { label: "Press Kit", href: "/press" },

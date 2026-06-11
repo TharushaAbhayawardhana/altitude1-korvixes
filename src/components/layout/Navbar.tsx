@@ -7,7 +7,7 @@ import { useNavigateToSection } from "@/hooks/useNavigateToSection"
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Features", to: "/features" },
-  { label: "About Us", to: "/about" },
+  { label: "About", to: "/about" },
   { label: "Solutions", to: "/solutions" },
   { label: "Contact", to: "/contact" },
 ]

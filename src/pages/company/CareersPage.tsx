@@ -81,9 +81,10 @@ export function CareersPage() {
               </div>
               <div className="space-y-2">
                 {dept.roles.map((role) => (
-                  <div
+                  <a
                     key={role.title}
-                    className="hud-panel p-5 flex items-center gap-4 hover:border-primary/40 transition-all group cursor-pointer"
+                    href={`mailto:careers@korvixes.io?subject=Application for ${encodeURIComponent(role.title)}`}
+                    className="hud-panel p-5 flex items-center gap-4 hover:border-primary/40 transition-all group"
                   >
                     <div className="flex-1">
                       <div className="text-sm font-semibold text-foreground/90 mb-1.5 group-hover:text-primary transition-colors" style={{ fontFamily: 'Orbitron, monospace' }}>
@@ -100,7 +101,7 @@ export function CareersPage() {
                       </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
-                  </div>
+                  </a>
                 ))}
               </div>
             </motion.div>

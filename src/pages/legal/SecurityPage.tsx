@@ -40,7 +40,7 @@ const securityPillars = [
     items: [
       "Air-gapped build pipelines with signed artifact verification at each stage",
       "Immutable infrastructure with automated security patching within 24h of CVE disclosure",
-      "Network traffic analyzed by ML-based anomaly detection at 10Gbps+ line rate",
+      "Network traffic analyzed by intelligence based anomaly detection at 10Gbps+ line rate",
       "DDoS protection with 3Tbps+ scrubbing capacity across all edge nodes",
       "Kubernetes workload isolation with seccomp profiles and runtime threat detection"
     ]

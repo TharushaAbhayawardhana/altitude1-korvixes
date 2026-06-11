@@ -151,29 +151,41 @@ export function TechStack() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="hud-panel p-6"
+          className="hud-panel p-0 overflow-hidden"
         >
-          <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-muted-foreground mb-6 text-center"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-            // Platform Capabilities
+          <div className="px-6 pt-5 pb-3">
+            <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-muted-foreground text-center"
+              style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              // Platform Capabilities
+            </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {capabilities.map((cap, i) => (
-              <motion.div
-                key={cap.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 0 } : {}}
-                transition={{ delay: 0.6 + i * 0.1 }}
-                className={`text-center px-6 py-2 ${i < 2 ? 'border-b border-border/40 md:border-b-0' : ''} ${i % 2 === 0 ? 'border-r border-border/40 md:border-r-0' : ''} ${i < 3 ? 'md:border-r md:border-border/40' : ''}`}
-              >
-                <div className="text-2xl font-black gradient-text mb-1" style={{ fontFamily: 'Orbitron, monospace' }}>
-                  {cap.value}
-                </div>
-                <div className="text-[10px] text-muted-foreground tracking-wide" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                  {cap.label}
-                </div>
-              </motion.div>
-            ))}
+          <div className="border-t border-primary/15">
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              {capabilities.map((cap, i) => (
+                <motion.div
+                  key={cap.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
+                  className={`group relative text-center px-4 py-6 transition-all duration-300 hover:bg-primary/5 ${
+                    i < 2 ? 'border-b border-primary/10 md:border-b-0' : ''
+                  } ${i % 2 === 0 ? 'border-r border-primary/10 md:border-r-0' : ''} ${
+                    i < 3 ? 'md:border-r md:border-primary/10' : ''
+                  }`}
+                >
+                  <div className="relative">
+                    <div className="text-3xl md:text-4xl font-black gradient-text mb-1.5" style={{ fontFamily: 'Orbitron, monospace' }}>
+                      {cap.value}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground tracking-wide group-hover:text-foreground/80 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      {cap.label}
+                    </div>
+                    {/* Bottom accent on hover */}
+                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary/60 transition-all duration-300 group-hover:w-8" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

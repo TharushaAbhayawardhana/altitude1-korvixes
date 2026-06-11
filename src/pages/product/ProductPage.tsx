@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { RefreshCw, Box, BarChart3, Binary, Layers, Sliders, Shield, Zap, Server, Network, ArrowRight } from 'lucide-react';
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
@@ -87,12 +88,12 @@ className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-[#2A6BDB] to-[#3BC
 >
 Open the Dashboard
 </a>
-<a
-href="/contact"
-className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-[#0B0E16]/90 border border-slate-800 hover:border-[#2A6BDB]/50 text-slate-300 font-medium transition-all duration-300 backdrop-blur-md text-center"
->
-Contact Us
-</a>
+            <Link
+                to="/contact"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-[#0B0E16]/90 border border-slate-800 hover:border-[#2A6BDB]/50 text-slate-300 font-medium transition-all duration-300 backdrop-blur-md text-center"
+              >
+                Contact Us
+              </Link>
 </div>
 </div>
 {/* RIGHT GLASS PANEL */}
@@ -346,13 +347,13 @@ Bring true structural visibility into your factory layout. Deploy your physical 
 safely inside a hyper-accelerated predictive simulation cluster.
 </p>
 <div className="flex justify-center pt-4">
-<a
-href="/contact"
-className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#2A6BDB] to-[#3BC4E8] text-white font-semibold rounded-xl hover:brightness-110 transition-all duration-300 shadow-[0_0_30px_rgba(42,107,219,0.3)] hover:shadow-[0_0_40px_rgba(59,196,232,0.5)]"
->
-<span>Contact Us</span>
-<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-</a>
+<Link
+                to="/contact"
+                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#2A6BDB] to-[#3BC4E8] text-white font-semibold rounded-xl hover:brightness-110 transition-all duration-300 shadow-[0_0_30px_rgba(42,107,219,0.3)] hover:shadow-[0_0_40px_rgba(59,196,232,0.5)]"
+              >
+                <span>Contact Us</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
 </div>
 <div className="pt-12 flex justify-center items-center gap-8 text-xs font-mono text-slate-500">
 <div>CORE STATUS: <span className="text-cyan-400">SYNCHRONIZED</span></div>
