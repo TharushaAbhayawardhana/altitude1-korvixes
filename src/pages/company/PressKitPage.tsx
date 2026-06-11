@@ -65,7 +65,11 @@ export function PressKitPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="hud-panel p-5 flex items-start gap-4 hover:border-primary/30 transition-all group"
+              className="hud-panel p-5 flex items-start gap-4 hover:border-primary/30 transition-all group cursor-pointer"
+              onClick={() => window.location.href = `mailto:press@korvixes.io?subject=Press%20Kit%20Request%3A%20${encodeURIComponent(asset.name)}`}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") window.location.href = `mailto:press@korvixes.io?subject=Press%20Kit%20Request%3A%20${encodeURIComponent(asset.name)}` }}
             >
               <div className="w-9 h-9 cyber-chamfer-sm bg-primary/8 border border-primary/25 flex items-center justify-center shrink-0">
                 {asset.type === 'PDF' ? <FileText className="w-4 h-4 text-primary" strokeWidth={1.5} /> : <Image className="w-4 h-4 text-primary" strokeWidth={1.5} />}
@@ -83,7 +87,10 @@ export function PressKitPage() {
                   <span>{asset.size}</span>
                 </div>
               </div>
-              <Download className="w-4 h-4 text-muted-foreground/20 group-hover:text-primary transition-colors shrink-0 mt-1" strokeWidth={1.5} />
+              <div className="flex flex-col items-center gap-1 shrink-0 mt-1">
+                <Download className="w-4 h-4 text-muted-foreground/20 group-hover:text-primary transition-colors" strokeWidth={1.5} />
+                <span className="text-[8px] text-muted-foreground/30 group-hover:text-primary/50 transition-colors" style={{ fontFamily: 'JetBrains Mono, monospace' }}>REQUEST</span>
+              </div>
             </motion.div>
           ))}
         </div>

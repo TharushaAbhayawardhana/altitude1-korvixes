@@ -9,7 +9,10 @@ export function PaymentSuccessPage() {
   const [countdown, setCountdown] = useState(10)
 
   useEffect(() => {
-    if (countdown <= 0) return
+    if (countdown <= 0) {
+      window.location.href = "https://app.korvixes.one/"
+      return
+    }
     const timer = setInterval(() => setCountdown((c) => c - 1), 1000)
     return () => clearInterval(timer)
   }, [countdown])
