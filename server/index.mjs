@@ -1,7 +1,13 @@
 import "dotenv/config"
 import express from "express"
+import path from "path"
+import { fileURLToPath } from "url"
 import cors from "cors"
 import Stripe from "stripe"
+
+// ── Path setup for static serving ──
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const distPath = path.resolve(__dirname, "..", "dist")
 
 // ── Startup validation ──
 const SECRET_KEY = process.env.STRIPE_SECRET_KEY
@@ -30,6 +36,17 @@ for (const [plan, price] of Object.entries(PRICE_MAP)) {
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+// ── Serve production build ──
+app.use(express.static(distPath, {
+  maxAge: "1y",
+  immutable: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith(".html")) {
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+    }
+  },
+}))
 
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
@@ -87,7 +104,17 @@ app.post("/api/create-checkout-session", async (req, res) => {
   }
 })
 
+// ── SPA fallback: serve index.html for all non-API, non-file routes ──
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api/")) {
+    res.status(404).json({ error: "Not found" })
+    return
+  }
+  res.sendFile(path.join(distPath, "index.html"))
+})
+
 const PORT = process.env.PORT ?? 3001
 app.listen(PORT, () => {
   console.log(`[Stripe Server] Listening on http://localhost:${PORT}`)
+  console.log(`[Static] Serving from ${distPath}`)
 })
